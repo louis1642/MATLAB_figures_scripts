@@ -26,8 +26,10 @@ function resize_figure(perc)
 % See also: saveas, print, exportgraphics
 
     fig = gcf;
-    oldUnits = get(fig, "Units");  % Store original units
+    oldUnits = get(fig, "Units");  % Store original units and wstyle
+    oldWindowStyle = get(fig,'WindowStyle');
     set(fig, "Units", "centimeters");
+    set(fig, 'WindowStyle', 'normal');
 
     pos = get(fig, "Position");
     ratio = pos(4) / pos(3);
@@ -37,6 +39,7 @@ function resize_figure(perc)
 
     set(fig, "Position", [pos(1:2) newW newH]);
 
-    set(fig, "Units", oldUnits);  % Restore original units
+    set(fig, "Units", oldUnits);  % Restore original units and wstyle
+    set(fig, 'WindowStyle', oldWindowStyle);
 
 end
