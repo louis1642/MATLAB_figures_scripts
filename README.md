@@ -23,6 +23,9 @@ This repository provides a set of MATLAB utility functions for figure handling, 
   Draw triangular arrowheads instead of quiver arrows.
   Supports the same arguments as `quiver()`.
 
+- **curvedArrow**
+  Draw curved arrow. Useful for diagrams.
+
 
 ---
 
