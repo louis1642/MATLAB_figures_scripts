@@ -17,7 +17,11 @@ This repository provides a set of MATLAB utility functions for figure handling, 
 
 - **defaultcolors**  
   Return colors from a predefined default palette as hex codes.  
-  Supports indexed access, special "herder"/"target" colors, and a "show" mode to visualize the palette.  
+  Supports indexed access, special "herder"/"target" colors, and a "show" mode to visualize the palette.
+
+- **triquiver**
+  Draw triangular arrowheads instead of quiver arrows.
+  Supports the same arguments as `quiver()`.
 
 
 ---
