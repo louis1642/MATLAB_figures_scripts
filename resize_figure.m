@@ -1,11 +1,11 @@
-function resize_figure(perc)
+function resize_figure(x, options)
 % resize_figure: Resize the current figure to match LaTeX \includegraphics scaling.
 %
 % Syntax:
-%   resize_figure(perc)
+%   resize_figure(x)
 %
 % Arguments:
-%   perc : (numeric) Fraction of the A4 page width (21 cm) that the figure should occupy.
+%   x : (numeric) Fraction of the A4 page width (21 cm) that the figure should occupy.
 %
 % Description:
 %   This function resizes the current figure so that its physical size (in centimeters)
@@ -25,6 +25,13 @@ function resize_figure(perc)
 %
 % See also: saveas, print, exportgraphics
 
+arguments
+    x (1,1) {mustBeNumeric}
+    options.Unit string {mustBeMember(options.Unit,["percentualOfA4", ...
+                    "percentualOfUSletterColumn", "percentualOfUSletterFull", ...
+                    "centimeters", "points", "pixels"])} = "percentualOfA4"
+end
+
     fig = gcf;
     oldUnits = get(fig, "Units");  % Store original units and wstyle
     oldWindowStyle = get(fig,'WindowStyle');
@@ -34,7 +41,25 @@ function resize_figure(perc)
     pos = get(fig, "Position");
     ratio = pos(4) / pos(3);
 
-    newW = 21 * perc;
+    switch options.Unit
+        case "percentualOfA4"
+            newW = 21 * x;
+        case "percentualOfUSletterColumn"
+            newW = 8.63477 * x;
+        case "percentualOfUSletterFull"
+            newW = 17.77747 * x;
+        case "centimeters"
+            newW = x;
+        case "points"
+            set(fig, "Units", "points");
+            newW = x;
+            set(fig, "Units", "centimeters");
+        case "pixels"
+            set(fig, "Units", "pixels");
+            newW = x;
+            set(fig, "Units", "centimeters");
+    end
+
     newH = newW * ratio;
 
     set(fig, "Position", [pos(1:2) newW newH]);
